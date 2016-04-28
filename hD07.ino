@@ -41,7 +41,15 @@ void loop()
         }
         else if (input == 4)    //This is a test for a compact function
         {
-            doubleCompactOneServoTest();
+            //doubleCompactOneServoTest();
+            Serial.println("twoTest");
+            twoTest();
+        }
+        else if (input == 5)
+        {
+            Serial.println("bankTest");
+            bankTest();
+            //bankTest2();
         }
   }
 }

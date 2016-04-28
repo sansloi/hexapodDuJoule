@@ -20,6 +20,7 @@ void menuOne()
     Serial.println("2: Begin wire i2c Transmission");
     Serial.println("3: Bring something different");
     Serial.println("4: Compact 1-servo test");
+    Serial.println("5: bank matrix test");
     return;
 }
 
@@ -45,4 +46,9 @@ void response3()
 void response4()
 {
     Serial.print("Starting doubleCompactOneServoTest function");
+}
+
+void response5()
+{
+    Serial.print("Starting bank test function");
 }

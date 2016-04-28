@@ -85,10 +85,59 @@ void compactOneServoTest(int servoNum, int pos, int delayAmt)
 
 void doubleCompactOneServoTest()
 {
-    compactOneServoTest(Y1P0, 255, 1000);
-    compactOneServoTest(Y1P0, 128, 1000);
-    compactOneServoTest(Y1P0, (byte)0, 1000); //byte 0's, err o.w.
-    compactOneServoTest(Y1P0, 128, 1000);     //should reset pos
+    compactOneServoTest(Y1P0, 228, 2000);
+    compactOneServoTest(Y1P0, 128, 2000);
+    //compactOneServoTest(Y1P0, (byte)0, 2000); //byte 0's, err o.w.
+    compactOneServoTest(Y1P0, 28, 2000);
+    compactOneServoTest(Y1P0, 128, 2000);     //should reset pos
+    return;
+}
+
+void twoTest()
+{
+    compactOneServoTest(Y1P0, 228, 2000);
+    compactOneServoTest(Y1P0, 128, 2000);
+    compactOneServoTest(Y1P0, 28, 2000);
+    compactOneServoTest(Y1P0, 128, 2000);     //should reset pos
+
+    compactOneServoTest(Y1P1, 228, 2000);
+    compactOneServoTest(Y1P1, 128, 2000);
+    compactOneServoTest(Y1P1, 28, 2000);
+    compactOneServoTest(Y1P1, 128, 2000);     //should reset pos
+    return;
+}
+
+void bankTest()
+{
+    //int bank[4] = {228, 128, 28, 128};
+    int bank[5] = {255, 1, 255, 1, 128};
+    for(int ic = 0; ic < 5; ic++)
+    {
+    compactOneServoTest(Y1P0, bank[ic], 1000); 
+    Serial.print("ic : ");
+    Serial.println(ic);
+    }
+    return;
+}
+
+void bankTest2()
+{
+    int bank[4] = {228, 128, 28, 128};
+    for(int ic = 0; ic < 4; ic++)
+    {
+    compactOneServoTest(63, bank[ic], 0); 
+    compactOneServoTest(64, bank[ic], 0);
+    Serial.print("ic : ");
+    Serial.println(ic);
+    delay(1000);
+    }
+    return;
+}
+
+
+void defaultPos()
+{
+    return;
 }
 
 //void dance()
