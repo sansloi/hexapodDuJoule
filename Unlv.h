@@ -74,12 +74,20 @@ void oneServoTest()
 
 void compactOneServoTest(int servoNum, int pos, int delayAmt)
 {
-//    int servoNum, pos, delayAmt;
     Wire.beginTransmission(ADDRESS);
         Wire.write(servoNum);
         Wire.write(pos);
     Wire.endTransmission();
     delay(delayAmt);
+    return;
+}
+
+void wire(int servoNum, int pos )   //no delay at end
+{
+    Wire.beginTransmission(ADDRESS);
+        Wire.write(servoNum);
+        Wire.write(pos);
+    Wire.endTransmission();
     return;
 }
 
@@ -113,7 +121,7 @@ void bankTest()
     int bank[5] = {255, 1, 255, 1, 128};
     for(int ic = 0; ic < 5; ic++)
     {
-    compactOneServoTest(Y1P0, bank[ic], 1000); 
+    compactOneServoTest(Y1P0, bank[ic], 1000);
     Serial.print("ic : ");
     Serial.println(ic);
     }
@@ -123,21 +131,30 @@ void bankTest()
 void bankTest2()
 {
     int bank[4] = {228, 128, 28, 128};
+   // int bank2[4] = {28, 128, 228,128};
+    int bank2[4] = bank - 2.*bank+256; //work on this
     for(int ic = 0; ic < 4; ic++)
     {
-    compactOneServoTest(63, bank[ic], 0); 
-    compactOneServoTest(64, bank[ic], 0);
+    wire(63, bank[ic]);
+    wire(72, bank2[ic]);
     Serial.print("ic : ");
     Serial.println(ic);
-    delay(1000);
+    delay(1000);    //have a delay if using wire function!!!
     }
     return;
 }
-
 
 void defaultPos()
 {
     return;
 }
+/*
+void home()     //reset all positions to home
+{
+    int homeM = 128;
+    return;
+
+}
+*/
 
 //void dance()

@@ -48,8 +48,8 @@ void loop()
         else if (input == 5)
         {
             Serial.println("bankTest");
-            bankTest();
-            //bankTest2();
+            //bankTest();
+            bankTest2();
         }
   }
 }
