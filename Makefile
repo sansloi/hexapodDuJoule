@@ -4,7 +4,7 @@
 ### This is the path to where you have created/cloned your project
 #PROJECT_DIR       = /Users/MyUserName/path/to/my/Project
 #PROJECT_DIR       =	~/sketchbook/
-#PROJECT_DIR		=	/home/joule/sketchbook/blinktest002
+#PROJECT_DIR		=	/home/.../.../stuff
 
 ### ARDMK_DIR
 ### Path to the Arduino-Makefile director
@@ -29,7 +29,7 @@ ARDUINO_PREFERENCES_PATH	= ~/sketches/preferences.txt
 ### USER_LIB_PATH, optional, default to user's sketchbook
 ### Path to where the your project's libraries are stored.
 #USER_LIB_PATH    :=  $(PROJECT_DIR)/libraries
-USER_LIB_PAT	= ~/sketchbook/libraries
+USER_LIB_PAT	= ~/sketchbook/libraries ##~/sketchbook/libraries/armadillo
 
 ### BOARD_TAG
 ### It must be set to the board you are currently using. (i.e uno, mega2560, etc.)

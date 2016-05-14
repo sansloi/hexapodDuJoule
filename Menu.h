@@ -21,6 +21,7 @@ void menuOne()
     Serial.println("3: Bring something different");
     Serial.println("4: Compact 1-servo test");
     Serial.println("5: bank matrix test");
+    Serial.println("6: Homeing Test");
     return;
 }
 

@@ -1,6 +1,6 @@
 /* This header file will hold the motorCtrl's register value
  * & a few necessary functions
- *Author:Julio B. Figueroa
+ *Author: Julio B. Figueroa
  *University of Nevada, Las Vegas
  *Department of Mechanical Engineering
  */
@@ -91,6 +91,30 @@ void wire(int servoNum, int pos )   //no delay at end
     return;
 }
 
+void rangeTest(int num)    //use to map outputs for indy motors
+{
+    Serial.println("Begin Range Test, input num value");
+    int countflag = 0; //test var
+    while(Serial.available()==0)
+    {
+        num = Serial.parseFloat();
+        Serial.print("num = ");
+        Serial.println(num);
+        while (Serial.available() > 0)
+        {
+            if(num <=250 && num >= 0)
+            {
+                wire(Y1P0, num);
+                delay(200);
+            }
+            Serial.println("run value = ");
+            Serial.println(countflag);
+            countflag = countflag + 1;
+            return;
+        }
+    }
+}
+
 void doubleCompactOneServoTest()
 {
     compactOneServoTest(Y1P0, 228, 2000);
@@ -128,33 +152,63 @@ void bankTest()
     return;
 }
 
-void bankTest2()
+/* my mirror function, works 99% of the time, iffi 128 = center */
+int mir(int mirIn)
 {
-    int bank[4] = {228, 128, 28, 128};
-   // int bank2[4] = {28, 128, 228,128};
-    int bank2[4] = bank - 2.*bank+256; //work on this
+    int result;
+    result = mirIn- 2*mirIn+ 256;
+    return result;
+}
+
+void bankTest3()
+{
+//    int bank[4] = {188, 128, 68, 128};
+    int bank[4] = {188, 128, 188, 128};
+    int bank2[4] = {mir(bank[0]), mir(bank[1]), mir(bank[2]),mir(bank[3])};
+    //lesson: initate at 0, but recall at 1 
     for(int ic = 0; ic < 4; ic++)
     {
-    wire(63, bank[ic]);
-    wire(72, bank2[ic]);
-    Serial.print("ic : ");
-    Serial.println(ic);
-    delay(1000);    //have a delay if using wire function!!!
+   // wire(63, bank[ic]);     //Y1P0
+    //wire(72, bank2[ic]);    //Y4P0
+        wire(64, bank[ic]);
+        wire(73, bank2[ic]);
+        Serial.print("ic : ");
+        Serial.println(ic);
+        delay(1000);    //have a delay if using wire function!!!
     }
     return;
 }
 
-void defaultPos()
+void homeRobot()
 {
+    int homeBank[20] = {128};
+    //int bank2[4] = {mir(228), mir(128), mir(28),mir(128)};
+    for(int ic = 0; ic <= 0; ic++) //just once
+    {
+        for(int jc = 63; jc <= 82 ; jc ++)
+        {
+            wire(jc, homeBank[ic]);
+            Serial.print("ic :");
+            Serial.print(ic);
+            Serial.print("jc : ");
+            Serial.println(jc);
+            //delay(1000);    //have a delay if using wire function!!!
+        }
+        delay(1000);        //but keep it outside jc set, mistakes were made..
+        Serial.print("set complete");
+    }
     return;
 }
-/*
-void home()     //reset all positions to home
+
+void cornerset()    //make use home plays before this
 {
-    int homeM = 128;
-    return;
-
+    int h2b =   28;     //forward extreme
+        wire(63, h2b);
+        wire(69, mir(h2b));
+        wire(72, mir(h2b));
+        wire(78, h2b);
+        delay(1000);
+        delay(1000);        //but keep it outside jc set, mistakes were made..
+    return; 
 }
-*/
 
-//void dance()
